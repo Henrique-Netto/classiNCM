@@ -1,0 +1,25 @@
+body {
+    background-color: #f4f6f8;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.kpi .label {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.kpi strong {
+    font-size: 2rem;
+    display: block;
+}
+
+.kpi.risco {
+    background: #fee2e2;
+}
+
+.linha-alerta {
+    background-color: #fff5f5;
+}

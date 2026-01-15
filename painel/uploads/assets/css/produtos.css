@@ -1,0 +1,56 @@
+body {
+    background-color: #f4f6f8;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.resumo h6 {
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.resumo h3 {
+    margin: 0;
+}
+
+.resumo.total {
+    background: #f1f5f9;
+}
+
+.resumo.alto {
+    background: #fee2e2;
+}
+
+.resumo.medio {
+    background: #fef3c7;
+}
+
+.resumo.baixo {
+    background: #dcfce7;
+}
+
+.badge.risco.alto {
+    background: #dc2626;
+}
+
+.badge.risco.medio {
+    background: #d97706;
+}
+
+.badge.risco.baixo {
+    background: #16a34a;
+}
+
+.linha-alto {
+    background-color: #fff5f5;
+}
+
+.linha-medio {
+    background-color: #fffbeb;
+}
+
+.linha-baixo {
+    background-color: #f0fdf4;
+}

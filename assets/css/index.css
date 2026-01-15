@@ -1,0 +1,24 @@
+body {
+    background-color: #f4f6f8;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+.select2-container .select2-selection--single {
+    height: 38px;
+    padding: 5px 10px;
+}
+
+.select2-selection__rendered {
+    line-height: 26px !important;
+}
+
+.select2-selection__arrow {
+    height: 36px !important;
+}

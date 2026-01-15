@@ -1,0 +1,21 @@
+body {
+    background-color: #f4f6f8;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+}
+
+.btn-link {
+    text-decoration: none;
+}
