@@ -36,7 +36,7 @@ $clientes = $conn->query("
 
                         <form method="post"
                               enctype="multipart/form-data"
-                              action="<?= BASE_URL ?>/painel/ler_excel.php">
+                              action="<?= BASE_URL ?>/ler_excel.php">
 
                             <!-- Cliente -->
                             <div class="mb-3">
