@@ -1,44 +1,10 @@
 <?php
-// conexão simples
-$conn = new mysqli("localhost", "root", "", "classincm");
-if ($conn->connect_error) {
-    die("Erro de conexão");
-}
+require_once 'config/database.php';
 
-$msg = "";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!empty($_FILES['planilha']['name'])) {
-
-        $pasta = "uploads/";
-        if (!is_dir($pasta)) {
-            mkdir($pasta, 0777, true);
-        }
-
-        $nomeOriginal = $_FILES['planilha']['name'];
-        $ext = pathinfo($nomeOriginal, PATHINFO_EXTENSION);
-
-        if (!in_array($ext, ['xls','xlsx','csv'])) {
-            $msg = "Formato inválido. Envie Excel ou CSV.";
-        } else {
-
-            $nomeArquivo = uniqid() . "." . $ext;
-            $destino = $pasta . $nomeArquivo;
-
-            if (move_uploaded_file($_FILES['planilha']['tmp_name'], $destino)) {
-
-                $stmt = $conn->prepare("INSERT INTO uploads (nome_arquivo, nome_original) VALUES (?,?)");
-                $stmt->bind_param("ss", $nomeArquivo, $nomeOriginal);
-                $stmt->execute();
-
-                $msg = "Arquivo enviado com sucesso!";
-            }
-        }
-    }
-}
+$conn = Database::connect();
+$clientes = $conn->query("SELECT id, razao_social FROM clientes ORDER BY razao_social");
 ?>
-<!DOCTYPE html>
-<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>ClassiNCM - Upload</title>
@@ -78,18 +44,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
-<body>
 
 <div class="box">
-    <h2>ClassiNCM</h2>
-    <p>Envie a planilha de produtos do cliente</p>
+    <h2>Importar Planilha</h2>
 
-    <form method="post" enctype="multipart/form-data" action="ler_excel.php" target="_blank">
+    <form method="post" enctype="multipart/form-data" action="ler_excel.php"  target="_blank">
+        <label>Cliente</label><br>
+        <select name="cliente_id" required>
+            <option value="">Selecione o cliente</option>
+            <?php while ($c = $clientes->fetch_assoc()): ?>
+                <option value="<?= $c['id'] ?>">
+                    <?= htmlspecialchars($c['razao_social']) ?>
+                </option>
+            <?php endwhile; ?>
+        </select>
+        <br><br>
+
+        <label>Planilha</label><br>
         <input type="file" name="planilha" required>
-        <button type="submit">Enviar Planilha</button>
+
+        <br><br>
+        <button type="submit">Importar</button>
     </form>
 </div>
-
-
-</body>
-</html>

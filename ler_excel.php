@@ -2,13 +2,41 @@
 require_once 'config/database.php';
 require_once 'controller/UploadController.php';
 require_once 'controller/ExcelController.php';
+require_once 'model/ProdutoModel.php';
 
 try {
-    $caminho = UploadController::salvarArquivo($_FILES['planilha']);
-    $dados = ExcelController::lerPlanilha($caminho);
+    if (!isset($_POST['cliente_id'])) {
+        throw new Exception("Cliente não informado");
+    }
+
+    if (!isset($_FILES['planilha'])) {
+        throw new Exception("Planilha não enviada");
+    }
+
+    // salva upload
+    $upload = UploadController::salvarArquivo(
+        $_FILES['planilha'],
+        $_POST['cliente_id']
+    );
+
+    $uploadId = $upload['upload_id'];
+    $caminho  = $upload['caminho'];
+
+    // lê e classifica planilha
+    $produtos = ExcelController::lerPlanilha($caminho);
+
+    // salva produtos
+    foreach ($produtos as $produto) {
+        ProdutoModel::inserir($uploadId, $produto);
+    }
+
+    echo "<h2>Importação concluída com sucesso!</h2>";
+    echo "<p>Total de produtos importados: <strong>" . count($produtos) . "</strong></p>";
+
 } catch (Exception $e) {
-    die($e->getMessage());
+    die("Erro: " . $e->getMessage());
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -54,7 +82,7 @@ try {
             <th>Observação</th>
         </tr>
 
-        <?php foreach ($dados as $p): ?>
+        <?php foreach ($produtos as $p): ?>
             <tr>
                 <td><?= htmlspecialchars($p['codigo']) ?></td>
                 <td><?= htmlspecialchars($p['descricao']) ?></td>

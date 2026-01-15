@@ -22,18 +22,28 @@ class ExcelController
                 $linha[] = $cell->getValue();
             }
 
+            // classifica NCM
             $classificacao = ClassificacaoService::classificar($linha[2]);
 
+            // define risco
+            $risco = 'baixo';
+            if ($classificacao['categoria'] === 'Produto seletivo') {
+                $risco = 'alto';
+            } elseif ($classificacao['categoria'] === 'Alimento essencial') {
+                $risco = 'medio';
+            }
+
             $dados[] = [
-                'codigo' => $linha[0],
+                'codigo'    => $linha[0],
                 'descricao' => $linha[1],
-                'ncm' => $linha[2],
-                'preco' => $linha[3],
-                'capitulo' => $classificacao['capitulo'],
+                'ncm'       => $linha[2],
+                'preco'     => $linha[3],
+                'capitulo'  => $classificacao['capitulo'],
                 'categoria' => $classificacao['categoria'],
-                'ibs' => $classificacao['ibs'],
-                'cbs' => $classificacao['cbs'],
-                'obs' => $classificacao['obs']
+                'ibs'       => $classificacao['ibs'],
+                'cbs'       => $classificacao['cbs'],
+                'risco'     => $risco,
+                'obs'       => $classificacao['obs']
             ];
         }
 
