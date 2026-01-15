@@ -16,3 +16,12 @@
 
 </head>
 <body>
+
+<header class="topbar">
+    <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <span class="topbar-title">ClassiNCM</span>
+</header>
+

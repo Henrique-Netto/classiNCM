@@ -29,7 +29,7 @@ $uploads = $conn->query("
 ");
 ?>
 
-<div class="content">
+<div class="main-content">
     <div class="container-fluid mt-4">
 
         <!-- CABEÇALHO CLIENTE -->

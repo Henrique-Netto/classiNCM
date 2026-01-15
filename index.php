@@ -14,7 +14,7 @@ $clientes = $conn->query("
 ");
 ?>
 
-<div class="content">
+<div class="main-content">
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
